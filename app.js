@@ -3,38 +3,37 @@ const startButton = document.getElementById("startButton");
 const playAgain = document.getElementById("playAgain");
 const winner = document.getElementById("winner");
 
-let namePlayer1 = "";
-let namePlayer2 = "";
 let player1 = {
-  name: namePlayer1,
+  name: "",
   symbol: "X",
 };
 let player2 = {
-  name: namePlayer2,
+  name: "",
   symbol: "O",
 };
 let currentPlayer = player1.name;
 
 function setGame() {
-  function getName2() {
+  function getName1() {
     let nameValue1 = prompt("Player 1, enter your name");
-    namePlayer1 = nameValue1;
+    player1.name = nameValue1;
   }
 
-  function getName1() {
+  function getName2() {
     nameValue = prompt("Player 2, enter your name");
-    namePlayer2 = nameValue;
+    player2.name = nameValue;
   }
-  getName2();
   getName1();
+  getName2();
   renderPlayer();
 }
 
 function renderPlayer() {
   const player1Name = document.getElementById("player1");
-  player1Name.innerText = namePlayer1;
+  player1Name.innerText = player1.name;
   const player2Name = document.getElementById("player2");
-  player2Name.innerText = namePlayer2;
+  player2Name.innerText = player2.name;
+  console.log(player1, player2);
 }
 
 function clickCells(event) {
@@ -82,6 +81,7 @@ function checkWinner(player) {
       cells[col3].textContent === player
     ) {
       playAgain.style.zIndex = 3;
+      console.log(player1, player2);
       return true;
     }
   }
