@@ -60,6 +60,7 @@ function resetGame() {
   setGame();
 }
 playAgain.addEventListener("click", resetGame);
+startButton.addEventListener("click", setGame);
 
 function checkWinner(player) {
   let winner = [

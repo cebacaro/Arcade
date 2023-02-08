@@ -33,15 +33,15 @@ body {
 #startButton {
     border-radius: 10px;
     width: 200px;
-    position: absolute;
-    z-index: 2;
+    /* position: absolute; */
+    /* z-index: 2; */
 }
 
 #playAgain {
 
     border-radius: 10px;
     width: 200px;
-    position: relative;
+    /* position: relative; */
 }
 
 .board {
