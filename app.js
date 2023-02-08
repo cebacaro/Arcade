@@ -1,11 +1,19 @@
 const cells = document.querySelectorAll(".cell");
 const startButton = document.getElementById("startButton");
+const playAgain = document.getElementById("playAgain");
+const winner = document.getElementById("winner");
 
 let namePlayer1 = "";
 let namePlayer2 = "";
-let player1 = "X";
-let player2 = "O";
-let currentPlayer = player1;
+let player1 = {
+  name: namePlayer1,
+  symbol: "X",
+};
+let player2 = {
+  name: namePlayer2,
+  symbol: "O",
+};
+let currentPlayer = player1.name;
 
 function setGame() {
   function getName2() {
@@ -33,15 +41,25 @@ function clickCells(event) {
   if (event.target.textContent) {
     return;
   }
-  event.target.textContent = currentPlayer;
-  if (checkWinner(currentPlayer)) {
+  event.target.textContent = currentPlayer.symbol;
+  if (checkWinner(currentPlayer.symbol)) {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
-
-    startButton.innerText = "winner";
+    winner.innerText = `${currentPlayer.name} is the winner!`;
+    showResButton();
   } else {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
   }
 }
+
+function resetGame() {
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].innerText = "";
+  }
+  currentPlayer = player1;
+  winner.innerText = "";
+  setGame();
+}
+playAgain.addEventListener("click", resetGame);
 
 function checkWinner(player) {
   let winner = [
@@ -54,13 +72,15 @@ function checkWinner(player) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
   for (let i = 0; i < winner.length; i++) {
-    const [a, b, c] = winner[i];
+    const [col1, col2, col3] = winner[i];
     if (
-      cells[a].textContent === player &&
-      cells[b].textContent === player &&
-      cells[c].textContent === player
+      cells[col1].textContent === player &&
+      cells[col2].textContent === player &&
+      cells[col3].textContent === player
     ) {
+      playAgain.style.zIndex = 3;
       return true;
     }
   }
@@ -71,3 +91,5 @@ for (let i = 0; i < cells.length; i++) {
   cells[i].addEventListener("click", clickCells);
 }
 // testing git
+
+// document.getElementsByClassName("restartGame")[0].style.zIndex = 3;

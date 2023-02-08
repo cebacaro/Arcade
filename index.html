@@ -9,6 +9,7 @@
   </head>
   <body>
     <div class="contentBox">
+      <h1 id="winner"></h1>
       <div class="currentPlayer">
         Player 1:
         <span class="players" id="player1"></span>
@@ -17,7 +18,9 @@
       </div>
       <div class="statusButton">
         <button id="startButton" onclick="setGame()">Let's Play</button>
-        <!-- <button id="playAgain" onclick="setGame()">Play again</button> -->
+        <button class="restartGame" id="playAgain" onclick="resetGame()">
+          Play again
+        </button>
       </div>
     </div>
 
