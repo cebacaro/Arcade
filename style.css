@@ -4,6 +4,7 @@
 }
 
 body {
+    margin: 0;
     width: 99%;
     display: flex;
     height: 97vh;
@@ -11,15 +12,26 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-color: blanchedalmond;
+}
+
+.choose {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.frame {
+    display: flex;
+    flex-direction: row;
 }
 
 .contentBox {
-    margin-bottom: 20px;
+    margin-bottom: 100px;
     display: flex;
+    align-content: flex-start;
     flex-direction: column;
-    padding-bottom: 10%;
     width: 90%;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -44,13 +56,13 @@ body {
     position: relative;
 }
 
+
 .board {
     width: 360px;
     height: 360px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
 }
 
 .cell {

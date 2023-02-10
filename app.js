@@ -4,6 +4,7 @@ const playAgain = document.getElementById("playAgain");
 const winner = document.getElementById("winner");
 const singlePlayer = document.getElementById("singlePlayer");
 const twoPlayers = document.getElementById("twoPlayers");
+let gameOver = false;
 
 let player1 = {
   name: "",
@@ -13,28 +14,31 @@ let player2 = {
   name: "",
   symbol: "O",
 };
-let currentPlayer = player1.name;
+
+let currentPlayer = player1;
 
 function setGame() {
+  // Get names
   function getName1() {
-    let nameValue1 = prompt("Player 1, enter your name");
-    player1.name = nameValue1;
+    player1.name = prompt("Player 1, enter your name");
   }
   function getName2() {
-    nameValue = prompt("Player 2, enter your name");
-    player2.name = nameValue;
+    player2.name = prompt("Player 2, enter your name");
   }
-  if (singlePlayer.innerText === "twoPlayers") {
+
+  if (twoPlayers.selected) {
     getName1();
     getName2();
-  } else if (singlePlayer.innerText === "singlePlayer") {
+  } else {
     getName1();
     player2.name = "computer";
   }
-  renderPlayer();
+
+  displayPlayerNames();
+  gameOver = false;
 }
 
-function renderPlayer() {
+function displayPlayerNames() {
   const player1Name = document.getElementById("player1");
   player1Name.innerText = player1.name;
   const player2Name = document.getElementById("player2");
@@ -42,15 +46,44 @@ function renderPlayer() {
 }
 
 function clickCells(event) {
-  if (event.target.textContent) {
+  if (event.target.textContent || gameOver) {
+    // if the cell is filled
     return;
   }
+
+  // set the symbol in the cell
   event.target.textContent = currentPlayer.symbol;
+
   if (checkWinner(currentPlayer.symbol)) {
-    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    // current player is the winner
+    // show the winner's name
     winner.innerText = `${currentPlayer.name} is the winner!`;
-  } else {
+
+    // go to the next players turn
     currentPlayer = currentPlayer === player1 ? player2 : player1;
+  } else {
+    if (checkTie()) {
+      winner.innerText = "The game is Tie!";
+    } else {
+      currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
+  }
+
+  if (currentPlayer.name === "computer") {
+    emptyCells = [];
+    // play as the computer
+    for (let i = 0; i < cells.length; i++) {
+      if (cells[i].textContent === "") {
+        //cells[i].click();
+        //break;
+        emptyCells.push(cells[i]);
+      }
+    }
+    if (emptyCells.length > 0) {
+      let computerChoice =
+        emptyCells[Math.floor(Math.random() * emptyCells.length)];
+      computerChoice.click();
+    }
   }
 }
 
@@ -64,12 +97,13 @@ function resetGame() {
   playAgain.style.zIndex = -1;
 }
 
-twoPlayers.addEventListener("click", setGame);
-playAgain.addEventListener("click", resetGame);
-startButton.addEventListener("click", setGame);
-singlePlayer.addEventListener("click", setGame);
+//singlePlayer.addEventListener("click", setPlayers);
+//twoPlayers.addEventListener("click", setPlayers);
 
-function checkWinner(player) {
+startButton.addEventListener("click", setGame);
+playAgain.addEventListener("click", resetGame);
+
+function checkWinner(playerSymbol) {
   let winner = [
     [0, 1, 2],
     [3, 4, 5],
@@ -84,21 +118,27 @@ function checkWinner(player) {
   for (let i = 0; i < winner.length; i++) {
     const [col1, col2, col3] = winner[i];
     if (
-      cells[col1].textContent === player &&
-      cells[col2].textContent === player &&
-      cells[col3].textContent === player
+      cells[col1].textContent === playerSymbol &&
+      cells[col2].textContent === playerSymbol &&
+      cells[col3].textContent === playerSymbol
     ) {
       playAgain.style.zIndex = 3;
-
+      gameOver = true;
       return true;
     }
   }
+  return false;
+}
 
+function checkTie() {
+  // there's no winner
   for (let i = 0; i < cells.length; i++) {
     if (cells[i].textContent === "") {
       return false;
     }
   }
+  // and there are no empty
+
   winner.innerText = "The game is Tie!";
   return true;
 }
@@ -106,7 +146,13 @@ function checkWinner(player) {
 for (let i = 0; i < cells.length; i++) {
   cells[i].addEventListener("click", clickCells);
 }
-document.get;
+
 // testing git
 
 // document.getElementsByClassName("restartGame")[0].style.zIndex = 3;
+
+function choosePlayer() {
+  console.log("in chosePlayer");
+  // game should reset or set
+  //
+}
