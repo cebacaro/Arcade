@@ -141,6 +141,7 @@ function checkTie() {
   // and there are no empty
 
   winner.innerText = "The game is Tie!";
+  resetGame();
   return true;
 }
 
