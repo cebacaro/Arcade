@@ -22,6 +22,7 @@ function setGame() {
   function getName1() {
     player1.name = prompt("Player 1, enter your name");
   }
+
   function getName2() {
     player2.name = prompt("Player 2, enter your name");
   }
@@ -122,8 +123,8 @@ function checkWinner(playerSymbol) {
       cells[col2].textContent === playerSymbol &&
       cells[col3].textContent === playerSymbol
     ) {
-      playAgain.style.zIndex = 3;
       gameOver = true;
+      playAgain.style.zIndex = 3;
       return true;
     }
   }
@@ -145,14 +146,4 @@ function checkTie() {
 
 for (let i = 0; i < cells.length; i++) {
   cells[i].addEventListener("click", clickCells);
-}
-
-// testing git
-
-// document.getElementsByClassName("restartGame")[0].style.zIndex = 3;
-
-function choosePlayer() {
-  console.log("in chosePlayer");
-  // game should reset or set
-  //
 }
