@@ -48,19 +48,11 @@ function displayPlayerNames() {
 
 function clickCells(event) {
   if (event.target.textContent || gameOver) {
-    // if the cell is filled
     return;
   }
-
-  // set the symbol in the cell
   event.target.textContent = currentPlayer.symbol;
-
   if (checkWinner(currentPlayer.symbol)) {
-    // current player is the winner
-    // show the winner's name
     winner.innerText = `${currentPlayer.name} is the winner!`;
-
-    // go to the next players turn
     currentPlayer = currentPlayer === player1 ? player2 : player1;
   } else {
     if (checkTie()) {
@@ -69,14 +61,10 @@ function clickCells(event) {
       currentPlayer = currentPlayer === player1 ? player2 : player1;
     }
   }
-
   if (currentPlayer.name === "computer") {
     emptyCells = [];
-    // play as the computer
     for (let i = 0; i < cells.length; i++) {
       if (cells[i].textContent === "") {
-        //cells[i].click();
-        //break;
         emptyCells.push(cells[i]);
       }
     }
@@ -97,9 +85,6 @@ function resetGame() {
   setGame();
   playAgain.style.zIndex = -1;
 }
-
-//singlePlayer.addEventListener("click", setPlayers);
-//twoPlayers.addEventListener("click", setPlayers);
 
 startButton.addEventListener("click", setGame);
 playAgain.addEventListener("click", resetGame);
@@ -132,14 +117,11 @@ function checkWinner(playerSymbol) {
 }
 
 function checkTie() {
-  // there's no winner
   for (let i = 0; i < cells.length; i++) {
     if (cells[i].textContent === "") {
       return false;
     }
   }
-  // and there are no empty
-
   winner.innerText = "The game is Tie!";
   gameOver = true;
   playAgain.style.zIndex = 3;
